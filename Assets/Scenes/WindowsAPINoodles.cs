@@ -31,10 +31,11 @@ public class WindowsAPINoodles : MonoBehaviour
         Rect returnRect = new Rect();
         GetWindowRect(windowHandle, ref returnRect);
         origin = new Vector2Int(returnRect.Left+returnRect.Right/2,returnRect.Top+returnRect.Bottom/2);
-        gameToScreen = ((float)(returnRect.Top - returnRect.Bottom))/(camera.orthographicSize*2);
+        gameToScreen = ((float)Screen.currentResolution.height)/camera.orthographicSize*2;
+        //gameToScreen = ((float)(returnRect.Top - returnRect.Bottom))/(camera.orthographicSize*2);
     }
 
-    public void Update()
+    public void LateUpdate()
     {
         Rect returnRect = new Rect();
         GetWindowRect(windowHandle, ref returnRect);
@@ -44,8 +45,8 @@ public class WindowsAPINoodles : MonoBehaviour
         oldWindowX = returnRect.Left;
         camera.transform.position += new Vector3(cameraOffsetX*(1f/gameToScreen),0,0);
         
-        varA.text = gameToScreen.ToString();
-        varB.text = camera.transform.position.x.ToString();
+        varA.text = Screen.currentResolution.ToString();
+        varB.text = (camera.orthographicSize*2).ToString();
     }
 
 #if UNITY_STANDALONE_WIN || UNITY_EDITOR
